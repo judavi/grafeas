@@ -34,6 +34,8 @@ import "proto/v1beta1/image.proto";
 import "proto/v1beta1/package.proto";
 import "proto/v1beta1/provenance.proto";
 import "proto/v1beta1/vulnerability.proto";
+import "proto/v1beta1/citiattestation.proto";
+import "proto/v1beta1/iris.proto";
 
 // [Grafeas](grafeas.io) API.
 //
@@ -219,9 +221,13 @@ message Occurrence {
     grafeas.v1beta1.discovery.Details discovered = 13;
     // Describes an attestation of an artifact.
     grafeas.v1beta1.attestation.Details attestation = 14;
+    // Describes an UEM entitlement.
+    grafeas.v1beta1.citiattestation.Details citiattestation = 15;
+    // Describes an IRIS installations.
+    grafeas.v1beta1.iris.Details iris = 16;
   }
 
-  // next_id = 15;
+  // next_id = 17;
 }
 
 // An entity that can have metadata. For example, a Docker image.

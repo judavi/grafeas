@@ -90,6 +90,20 @@
 //go:generate swagger vulnerability.proto
 //go:generate mv vulnerability.swagger.json swagger
 
+//go:generate protoc citiattestation.proto
+//go:generate rm -rf citiattestation_go_proto
+//go:generate mkdir citiattestation_go_proto
+//go:generate mv citiattestation.pb.go citiattestation_go_proto
+//go:generate swagger citiattestation.proto
+//go:generate mv citiattestation.swagger.json swagger
+
+//go:generate protoc iris.proto
+//go:generate rm -rf iris_go_proto
+//go:generate mkdir iris_go_proto
+//go:generate mv iris.pb.go iris_go_proto
+//go:generate swagger iris.proto
+//go:generate mv iris.swagger.json swagger
+
 //go:generate protoc project.proto
 //go:generate rm -rf project_go_proto
 //go:generate mkdir project_go_proto
