@@ -39,6 +39,14 @@ enum NoteKind {
   DISCOVERY = 6;
   // This represents a logical "role" that can attest to artifacts.
   ATTESTATION = 7;
+  // This represents an entitlement
+  ENTITLEMENT = 8;
+  // This represents a version
+  VERSION = 9;
+  // This represents a c attestation
+  CITIATTESTATION = 10;
+  // This represents an Iris inventory
+  IRIS = 11;
 }
 
 // Metadata for any related URL information.

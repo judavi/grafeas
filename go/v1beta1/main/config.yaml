@@ -1,0 +1,30 @@
+grafeas:
+  # Grafeas api server config
+  api:
+    # Endpoint address
+    address: "0.0.0.0:8080"
+    # PKI configuration (optional)
+    cafile:
+    keyfile:
+    certfile:
+    # CORS configuration (optional)
+    cors_allowed_origins:
+      # - "http://example.net"
+  storage_type: "postgres"
+  # Postgres options
+  postgres:
+    # Database host
+    host: "localhost:5432"
+    # Database name
+    dbname: "grafeas_db"
+    # Database username
+    user: "postgres"
+    # Database password
+    password: "password"
+    # Valid sslmodes disable, allow, prefer, require, verify-ca, verify-full.
+    # See https://www.postgresql.org/docs/current/static/libpq-connect.html for details
+    sslmode: "disable"
+    # 32-bit URL-safe base64 key used to encrypt pagination tokens
+    # If one is not provided, it will be generated.
+    # Multiple grafeas instances in the same cluster need the same value.
+    paginationkey:

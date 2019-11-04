@@ -83,6 +83,34 @@
 //go:generate swagger image.proto
 //go:generate mv image.swagger.json swagger
 
+//go:generate protoc entitlement.proto
+//go:generate rm -rf entitlement_go_proto
+//go:generate mkdir entitlement_go_proto
+//go:generate mv entitlement.pb.go entitlement_go_proto
+//go:generate swagger entitlement.proto
+//go:generate mv entitlement.swagger.json swagger
+
+//go:generate protoc iris.proto
+//go:generate rm -rf iris_go_proto
+//go:generate mkdir iris_go_proto
+//go:generate mv iris.pb.go iris_go_proto
+//go:generate swagger iris.proto
+//go:generate mv iris.swagger.json swagger
+
+//go:generate protoc version.proto
+//go:generate rm -rf version_go_proto
+//go:generate mkdir version_go_proto
+//go:generate mv version.pb.go version_go_proto
+//go:generate swagger version.proto
+//go:generate mv version.swagger.json swagger
+
+//go:generate protoc citiattestation.proto
+//go:generate rm -rf citiattestation_go_proto
+//go:generate mkdir citiattestation_go_proto
+//go:generate mv citiattestation.pb.go citiattestation_go_proto
+//go:generate swagger citiattestation.proto
+//go:generate mv citiattestation.swagger.json swagger
+
 //go:generate protoc vulnerability.proto
 //go:generate rm -rf vulnerability_go_proto
 //go:generate mkdir vulnerability_go_proto
