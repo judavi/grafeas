@@ -90,6 +90,27 @@
 //go:generate swagger vulnerability.proto
 //go:generate mv vulnerability.swagger.json swagger
 
+//go:generate protoc entitlement.proto
+//go:generate rm -rf entitlement_go_proto
+//go:generate mkdir entitlement_go_proto
+//go:generate mv entitlement.pb.go entitlement_go_proto
+//go:generate swagger entitlement.proto
+//go:generate mv entitlement.swagger.json swagger
+
+//go:generate protoc iris.proto
+//go:generate rm -rf iris_go_proto
+//go:generate mkdir iris_go_proto
+//go:generate mv iris.pb.go iris_go_proto
+//go:generate swagger iris.proto
+//go:generate mv iris.swagger.json swagger
+
+//go:generate protoc version.proto
+//go:generate rm -rf version_go_proto
+//go:generate mkdir version_go_proto
+//go:generate mv version.pb.go version_go_proto
+//go:generate swagger version.proto
+//go:generate mv version.swagger.json swagger
+
 //go:generate protoc project.proto
 //go:generate rm -rf project_go_proto
 //go:generate mkdir project_go_proto

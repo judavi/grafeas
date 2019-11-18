@@ -700,11 +700,11 @@
           "description": "Required. The name of the package where the vulnerability was found."
         },
         "min_affected_version": {
-          "$ref": "#/definitions/packageVersion",
+          "$ref": "#/definitions/v1beta1packageVersion",
           "description": "The min version of the package in which the vulnerability exists."
         },
         "max_affected_version": {
-          "$ref": "#/definitions/packageVersion",
+          "$ref": "#/definitions/v1beta1packageVersion",
           "description": "The max version of the package in which the vulnerability exists."
         },
         "severity_name": {
@@ -1002,6 +1002,29 @@
       },
       "description": "A note that indicates a type of analysis a provider would perform. This note\nexists in a provider's project. A `Discovery` occurrence is created in a\nconsumer's project at the start of analysis."
     },
+    "entitlementEntitlement": {
+      "type": "object",
+      "properties": {
+        "details": {
+          "$ref": "#/definitions/v1beta1entitlementDetails"
+        }
+      },
+      "title": "A note that indicates the entitlements on UEM"
+    },
+    "entitlementEntitlements": {
+      "type": "object",
+      "properties": {
+        "resourceName": {
+          "type": "string",
+          "title": "Required. Resource name"
+        },
+        "resourceUri": {
+          "type": "string",
+          "title": "Required. Resource URI"
+        }
+      },
+      "description": "Details of a discovery occurrence."
+    },
     "imageBasis": {
       "type": "object",
       "properties": {
@@ -1080,6 +1103,15 @@
       },
       "description": "Layer holds metadata specific to a layer of a Docker image."
     },
+    "irisIris": {
+      "type": "object",
+      "properties": {
+        "details": {
+          "$ref": "#/definitions/v1beta1irisDetails"
+        }
+      },
+      "title": "A note that indicates the entitlements on UEM"
+    },
     "packageArchitecture": {
       "type": "string",
       "enum": [
@@ -1102,7 +1134,7 @@
           "description": "The CPU architecture for which packages in this distribution channel were\nbuilt."
         },
         "latest_version": {
-          "$ref": "#/definitions/packageVersion",
+          "$ref": "#/definitions/v1beta1packageVersion",
           "description": "The latest available version of this package in this distribution channel."
         },
         "maintainer": {
@@ -1154,29 +1186,6 @@
         }
       },
       "description": "This represents a particular package that is distributed over various\nchannels. E.g., glibc (aka libc6) is distributed by many, at various\nversions."
-    },
-    "packageVersion": {
-      "type": "object",
-      "properties": {
-        "epoch": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Used to correct mistakes in the version numbering scheme."
-        },
-        "name": {
-          "type": "string",
-          "description": "Required only when version kind is NORMAL. The main part of the version\nname."
-        },
-        "revision": {
-          "type": "string",
-          "description": "The iteration of the package build from the above version."
-        },
-        "kind": {
-          "$ref": "#/definitions/VersionVersionKind",
-          "description": "Required. Distinguishes between sentinel MIN/MAX versions and normal\nversions."
-        }
-      },
-      "description": "Version contains structured information about the version of a package."
     },
     "protobufAny": {
       "type": "object",
@@ -1727,6 +1736,18 @@
         "attestation_authority": {
           "$ref": "#/definitions/attestationAuthority",
           "description": "A note describing an attestation role."
+        },
+        "version": {
+          "$ref": "#/definitions/v1beta1versionVersion",
+          "title": "A note describing a version"
+        },
+        "entitlement": {
+          "$ref": "#/definitions/entitlementEntitlement",
+          "description": "Describes an entitlement."
+        },
+        "iris": {
+          "$ref": "#/definitions/irisIris",
+          "description": "Describes an Iris inventory."
         }
       },
       "description": "A type of analysis that can be done for a resource."
@@ -1741,10 +1762,13 @@
         "PACKAGE",
         "DEPLOYMENT",
         "DISCOVERY",
-        "ATTESTATION"
+        "ATTESTATION",
+        "ENTITLEMENT",
+        "VERSION",
+        "IRIS"
       ],
       "default": "NOTE_KIND_UNSPECIFIED",
-      "description": "Kind represents the kinds of notes supported.\n\n - NOTE_KIND_UNSPECIFIED: Unknown.\n - VULNERABILITY: The note and occurrence represent a package vulnerability.\n - BUILD: The note and occurrence assert build provenance.\n - IMAGE: This represents an image basis relationship.\n - PACKAGE: This represents a package installed via a package manager.\n - DEPLOYMENT: The note and occurrence track deployment events.\n - DISCOVERY: The note and occurrence track the initial discovery status of a resource.\n - ATTESTATION: This represents a logical \"role\" that can attest to artifacts."
+      "description": "Kind represents the kinds of notes supported.\n\n - NOTE_KIND_UNSPECIFIED: Unknown.\n - VULNERABILITY: The note and occurrence represent a package vulnerability.\n - BUILD: The note and occurrence assert build provenance.\n - IMAGE: This represents an image basis relationship.\n - PACKAGE: This represents a package installed via a package manager.\n - DEPLOYMENT: The note and occurrence track deployment events.\n - DISCOVERY: The note and occurrence track the initial discovery status of a resource.\n - ATTESTATION: This represents a logical \"role\" that can attest to artifacts.\n - ENTITLEMENT: This represents an entitlement\n - VERSION: This represents a version\n - IRIS: This represents an Iris inventory"
     },
     "v1beta1Occurrence": {
       "type": "object",
@@ -1810,6 +1834,14 @@
         "attestation": {
           "$ref": "#/definitions/v1beta1attestationDetails",
           "description": "Describes an attestation of an artifact."
+        },
+        "iris": {
+          "$ref": "#/definitions/v1beta1irisDetails",
+          "description": "Describes an IRIS installation."
+        },
+        "entitlement": {
+          "$ref": "#/definitions/v1beta1entitlementDetails",
+          "description": "Describes an entitlement."
         }
       },
       "description": "An instance of an analysis type that has been found on a resource."
@@ -1918,6 +1950,27 @@
       },
       "description": "Details of a discovery occurrence."
     },
+    "v1beta1entitlementDetails": {
+      "type": "object",
+      "properties": {
+        "soeid": {
+          "type": "string",
+          "title": "Required. SOEID"
+        },
+        "csi": {
+          "type": "string",
+          "title": "Required. APP CSI ID"
+        },
+        "entitlements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/entitlementEntitlements"
+          },
+          "title": "Required. Identifies a resource entitlement"
+        }
+      },
+      "description": "Details of a Citi occurrence."
+    },
     "v1beta1imageDetails": {
       "type": "object",
       "properties": {
@@ -1927,6 +1980,61 @@
         }
       },
       "description": "Details of an image occurrence."
+    },
+    "v1beta1irisDetails": {
+      "type": "object",
+      "properties": {
+        "server_name": {
+          "type": "string",
+          "title": "Required. Server name"
+        },
+        "instance_name": {
+          "type": "string",
+          "title": "Required. Instance name"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Required.  Port"
+        },
+        "csiid": {
+          "type": "string",
+          "title": "Required. APP CSI ID"
+        },
+        "server_found_in": {
+          "type": "string",
+          "title": "Required. Where the server was found"
+        },
+        "version_extracted_from": {
+          "type": "string",
+          "title": "Required. Version extracted from"
+        },
+        "date_scanned": {
+          "type": "string",
+          "title": "Required. Date scanned DD/MM/YYYY"
+        },
+        "cas_farm_name": {
+          "type": "string",
+          "title": "Required. CAS farm name"
+        },
+        "sector": {
+          "type": "string",
+          "title": "Required. Sector"
+        },
+        "env": {
+          "type": "string",
+          "title": "Required. Environment"
+        },
+        "dmz": {
+          "type": "string",
+          "title": "Required. DMZ"
+        },
+        "mw_support_group_dl": {
+          "type": "string",
+          "title": "Required. Support Distribution List"
+        }
+      },
+      "description": "Details of a Citi occurrence."
     },
     "v1beta1packageDetails": {
       "type": "object",
@@ -1946,7 +2054,7 @@
           "description": "Required. The CPE URI in [CPE format](https://cpe.mitre.org/specification/)\ndenoting the package manager version distributing a package."
         },
         "version": {
-          "$ref": "#/definitions/packageVersion",
+          "$ref": "#/definitions/v1beta1packageVersion",
           "description": "The version installed at this location."
         },
         "path": {
@@ -1955,6 +2063,45 @@
         }
       },
       "description": "An occurrence of a particular package installation found within a system's\nfilesystem. E.g., glibc was found in `/var/lib/dpkg/status`."
+    },
+    "v1beta1packageVersion": {
+      "type": "object",
+      "properties": {
+        "epoch": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Used to correct mistakes in the version numbering scheme."
+        },
+        "name": {
+          "type": "string",
+          "description": "Required only when version kind is NORMAL. The main part of the version\nname."
+        },
+        "revision": {
+          "type": "string",
+          "description": "The iteration of the package build from the above version."
+        },
+        "kind": {
+          "$ref": "#/definitions/VersionVersionKind",
+          "description": "Required. Distinguishes between sentinel MIN/MAX versions and normal\nversions."
+        }
+      },
+      "description": "Version contains structured information about the version of a package."
+    },
+    "v1beta1versionVersion": {
+      "type": "object",
+      "properties": {
+        "image_name": {
+          "type": "string",
+          "title": "Required. Image name"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/versionVersions"
+          }
+        }
+      },
+      "title": "A note that indicates the multiple versions from a resource"
     },
     "v1beta1vulnerabilityDetails": {
       "type": "object",
@@ -2005,6 +2152,20 @@
         }
       },
       "description": "Details of a vulnerability Occurrence."
+    },
+    "versionVersions": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "title": "Required. Version number"
+        },
+        "status": {
+          "type": "string",
+          "title": "Not required"
+        }
+      },
+      "title": "Details of a version"
     },
     "vulnerabilityCVSSv3": {
       "type": "object",
@@ -2131,7 +2292,7 @@
           "description": "Required. The package being described."
         },
         "version": {
-          "$ref": "#/definitions/packageVersion",
+          "$ref": "#/definitions/v1beta1packageVersion",
           "description": "Required. The version of the package being described."
         }
       },

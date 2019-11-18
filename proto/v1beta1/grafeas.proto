@@ -34,6 +34,9 @@ import "proto/v1beta1/image.proto";
 import "proto/v1beta1/package.proto";
 import "proto/v1beta1/provenance.proto";
 import "proto/v1beta1/vulnerability.proto";
+import "proto/v1beta1/version.proto";
+import "proto/v1beta1/entitlement.proto";
+import "proto/v1beta1/iris.proto";
 
 // [Grafeas](grafeas.io) API.
 //
@@ -219,6 +222,10 @@ message Occurrence {
     grafeas.v1beta1.discovery.Details discovered = 13;
     // Describes an attestation of an artifact.
     grafeas.v1beta1.attestation.Details attestation = 14;
+    // Describes an IRIS installation.
+    grafeas.v1beta1.iris.Details iris = 15;
+    // Describes an entitlement.
+    grafeas.v1beta1.entitlement.Details entitlement = 16;
   }
 
   // next_id = 15;
@@ -293,6 +300,12 @@ message Note {
     grafeas.v1beta1.discovery.Discovery discovery = 15;
     // A note describing an attestation role.
     grafeas.v1beta1.attestation.Authority attestation_authority = 16;
+    // A note describing a version
+    grafeas.v1beta1.version.Version version = 17;
+    // Describes an entitlement.
+    grafeas.v1beta1.entitlement.Entitlement entitlement = 18;
+    // Describes an Iris inventory.
+    grafeas.v1beta1.iris.Iris iris = 19;
   }
 
   // next_id = 17;
