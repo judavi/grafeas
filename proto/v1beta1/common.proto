@@ -41,6 +41,8 @@ enum NoteKind {
   ATTESTATION = 7;
   // This represents an in-toto link.
   INTOTO = 8;
+  // This represents an entitlement
+  ENTITLEMENT = 9;
 }
 
 // Metadata for any related URL information.

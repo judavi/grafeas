@@ -97,6 +97,13 @@
 //go:generate swagger intoto.proto
 //go:generate mv intoto.swagger.json swagger
 
+//go:generate protoc entitlement.proto
+//go:generate rm -rf entitlement_go_proto
+//go:generate mkdir entitlement_go_proto
+//go:generate mv entitlement.pb.go entitlement_go_proto
+//go:generate swagger entitlement.proto
+//go:generate mv entitlement.swagger.json swagger
+
 //go:generate protoc project.proto
 //go:generate rm -rf project_go_proto
 //go:generate mkdir project_go_proto
